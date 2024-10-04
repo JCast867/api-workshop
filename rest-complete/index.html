@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple User Management Client</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input {
+      margin: 5px 0;
+      padding: 8px;
+      width: 200px;
+    }
+    button {
+      padding: 8px 12px;
+      margin: 10px 0;
+    }
+    #output {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>User Management</h1>
+
+  <div>
+    <h3>Get All Users</h3>
+    <button onclick="getAllUsers()">Get Users</button>
+  </div>
+
+  <div>
+    <h3>Get User By ID</h3>
+    <input type="number" id="getUserId" placeholder="User ID" />
+    <button onclick="getUserById()">Get User</button>
+  </div>
+
+  <div>
+    <h3>Add a New User</h3>
+    <input type="text" id="newUsername" placeholder="Username" />
+    <input type="password" id="newPassword" placeholder="Password" />
+    <button onclick="createUser()">Create User</button>
+  </div>
+
+  <div>
+    <h3>Update User</h3>
+    <input type="number" id="updateUserId" placeholder="User ID" />
+    <input type="text" id="updateUsername" placeholder="New Username" />
+    <input type="password" id="updatePassword" placeholder="New Password" />
+    <button onclick="updateUser()">Update User</button>
+  </div>
+
+  <div>
+    <h3>Delete User</h3>
+    <input type="number" id="deleteUserId" placeholder="User ID" />
+    <button onclick="deleteUser()">Delete User</button>
+  </div>
+
+  <div id="output">
+    <h3>Output</h3>
+    <pre id="result"></pre>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000/users';
+
+    // Fetch and display all users
+    async function getAllUsers() {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Fetch a user by ID
+    async function getUserById() {
+        const userId = document.getElementById('getUserId').value;
+        const response = await fetch(`${API_URL}/${userId}`);
+        const data = await response.json();
+        if (response.ok) document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Create a new user
+    async function createUser() {
+        const username = document.getElementById('newUsername').value;
+        const password = document.getElementById('newPassword').value;
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Update a user by ID
+    async function updateUser() {
+        const userId = document.getElementById('updateUserId').value;
+        const username = document.getElementById('updateUsername').value;
+        const password = document.getElementById('updatePassword').value;
+
+        const response = await fetch(`${API_URL}/${userId}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        if (response.ok) document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Delete a user by ID
+    async function deleteUser() {
+      const userId = document.getElementById('deleteUserId').value;
+        const response = await fetch(`${API_URL}/${userId}`, {
+          method: 'DELETE'
+        });
+        if (response.ok) document.getElementById('result').textContent = 'User deleted successfully';
+    }
+  </script>
+
+</body>
+</html>

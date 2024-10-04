@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple User Management Client</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input {
+      margin: 5px 0;
+      padding: 8px;
+      width: 200px;
+    }
+    button {
+      padding: 8px 12px;
+      margin: 10px 0;
+    }
+    #output {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>User Management</h1>
+
+  <div>
+    <h3>Get All Users</h3>
+    <button onclick="getAllUsers()">Get Users</button>
+  </div>
+
+  <div>
+    <h3>Get User By ID</h3>
+    <input type="number" id="getUserId" placeholder="User ID" />
+    <button onclick="getUserById()">Get User</button>
+  </div>
+
+  <div>
+    <h3>Add a New User</h3>
+    <input type="text" id="newUsername" placeholder="Username" />
+    <input type="password" id="newPassword" placeholder="Password" />
+    <button onclick="createUser()">Create User</button>
+  </div>
+
+  <div>
+    <h3>Update User</h3>
+    <input type="number" id="updateUserId" placeholder="User ID" />
+    <input type="text" id="updateUsername" placeholder="New Username" />
+    <input type="password" id="updatePassword" placeholder="New Password" />
+    <button onclick="updateUser()">Update User</button>
+  </div>
+
+  <div>
+    <h3>Delete User</h3>
+    <input type="number" id="deleteUserId" placeholder="User ID" />
+    <button onclick="deleteUser()">Delete User</button>
+  </div>
+
+  <div id="output">
+    <h3>Output</h3>
+    <pre id="result"></pre>
+  </div>
+
+  <script>
+    
+  </script>
+
+</body>
+</html>
