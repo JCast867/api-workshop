@@ -12,6 +12,11 @@ app.use(cors());
 // Create our temporary database
 let db = [];
 
+// Hello World
+app.get('/', (req, res) => {
+  res.send("Hello, world!");
+})
+
 // ROUTES
 // GET ALL USERS
 app.get('/users', (req, res) => {
